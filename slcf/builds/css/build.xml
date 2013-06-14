@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<project name="[Project Name] Build common css file" default="build-lib" basedir="../../..">
+
+	<property name="src.dir" value="code/production/css"/>
+	<property name="dest.dir" value="code/production/css"/>
+	<property name="uicompress.path" value="slcf/yuicompressor-2.4.2/build"/>
+
+	<taskdef name="yuicompress" classname="com.yahoo.platform.yui.compressor.YUICompressTask">
+		<classpath>
+			<fileset dir="${uicompress.path}">
+				<include name="*.jar"/>
+			</fileset>
+		</classpath>
+	</taskdef>
+
+	<target name="build-lib" depends="concat-files, csso-minify, cleaning">
+		<echo>Done.</echo>
+	</target>
+
+	<target name="csso-minify" depends="minify">
+
+		<parallel>
+			<apply executable="csso" failonerror="true" dir="${dest.dir}" verbose="true" force="true" relative="true">
+				<filelist dir="${dest.dir}">
+					<file name="template_styles.css"/>
+				</filelist>
+				<srcfile />
+				<mapper type="glob" from="*.css" to="*.css"/>
+				<targetfile />
+			</apply>
+		</parallel>
+		<echo>Done csso</echo>
+	</target>
+
+	<target name="concat-files">
+		<echo>Concatenating files</echo>
+		<concat destfile="${dest.dir}/template_styles.css">
+			<filelist dir="${src.dir}">
+				<file name="default.css" />
+				<file name="common.css" />
+				<file name="icons.css" />
+				<file name="corners.css" />
+				<file name="forms.css" />
+				<file name="billets.css" />
+				<file name="components.css" />
+				<file name="layout.css" />
+				<file name="modification.css" />
+				<file name="hacks.css" />
+				<!--<file name="styles.css" />-->
+			</filelist>
+		</concat>
+		<concat destfile="${dest.dir}/template_styles_ie.css">
+			<filelist dir="${src.dir}">
+				<file name="ie.css" />
+			</filelist>
+		</concat>
+
+		<echo>Concatenating profit</echo>
+		<!--<replaceregexp file="${dest.dir}/template_styles.css"-->
+			<!--match="url\(../"-->
+			<!--replace="url\("-->
+			<!--byline="true"-->
+		<!--/>-->
+		<!--<replaceregexp file="${dest.dir}/template_styles_ie.css"-->
+			<!--match="url\(../"-->
+			<!--replace="url\("-->
+			<!--byline="true"-->
+		<!--/>-->
+		<!--<replaceregexp file="${dest.dir}/template_styles.css"-->
+			<!--match="url\(\'../"-->
+			<!--replace="url\(\'"-->
+			<!--byline="true"-->
+		<!--/>-->
+		<!--<replaceregexp file="${dest.dir}/template_styles_ie.css"-->
+			<!--match="url\(\'../"-->
+			<!--replace="url\(\'"-->
+			<!--byline="true"-->
+		<!--/>-->
+		<!--<replaceregexp file="${dest.dir}/template_styles.css"-->
+			<!--match='url\(\"../'-->
+			<!--replace='url\(\"'-->
+			<!--byline="true"-->
+		<!--/>-->
+		<!--<replaceregexp file="${dest.dir}/template_styles_ie.css"-->
+			<!--match='url\(\"../'-->
+			<!--replace='url\(\"'-->
+			<!--byline="true"-->
+		<!--/>-->
+		<!--<echo>Path to image replacing</echo>-->
+
+		<!--
+		<rename src="ie.css" dest="template_styles_ie.css"/>-->
+	</target>
+
+	<target name="minify">
+		<echo>Minifying files</echo>
+		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${dest.dir}">
+			<fileset dir="${dest.dir}">
+				<include name="template_styles*.css"/>
+				<exclude name="*_temp.css"/>
+			</fileset>
+		</yuicompress>
+		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${src.dir}">
+			<fileset dir="${src.dir}">
+				<include name="template_styles*.css"/>
+				<exclude name="*_temp.css"/>
+			</fileset>
+		</yuicompress>
+		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${dest.dir}">
+			<fileset dir="${dest.dir}">
+				<include name="styles.css"/>
+				<exclude name="template_*.css"/>
+			</fileset>
+		</yuicompress>
+		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${src.dir}">
+			<fileset dir="${src.dir}">
+				<include name="print.css"/>
+				<exclude name="*_temp.css"/>
+			</fileset>
+		</yuicompress>
+
+	</target>
+
+	<target name="cleaning">
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="@media screen and\("
+                        replace="@media screen and \("
+						byline="false"
+						flags="g"
+                />
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="@media all and"
+                        replace=" @media all and "
+						byline="false"
+						flags="g"
+                />
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="not all and"
+                        replace="not all and "
+						byline="false"
+						flags="g"
+                />
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="px\)\{"
+                        replace="px\) \{"
+						byline="false"
+						flags="g"
+                />
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="px\)\{"
+                        replace="px\) \{"
+						byline="false"
+						flags="g"
+                />
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="@media screen and\(max-width"
+                        replace="@media screen and \(max-width"
+						byline="false"
+						flags="g"
+                />
+		<replaceregexp file="${dest.dir}/template_styles.css"
+                        match="@media screen and(-webkit-min-device-pixel-ratio:0)"
+                        replace="@media screen and \(-webkit-min-device-pixel-ratio:0)"
+						byline="false"
+						flags="g"
+                />
+
+	</target>
+</project>

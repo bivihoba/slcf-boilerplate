@@ -1,0 +1,30 @@
+/* hasLayout > */
+/***/
+/*{*/
+	/*zoom:1;*/
+/*}*/
+/* hasLayout < */
+
+/* inline-block > */
+/***/
+/*{*/
+	/*display:inline;*/
+	/*zoom:1;*/
+/*}*/
+/* inline-block < */
+
+/* before after > */
+/** {*/
+	/*z-index: expression(runtimeStyle.zIndex = 1, insertAdjacentHTML('afterBegin', '<span class="*__before"></span>'));*/
+/*}*/
+/** {*/
+	/*z-index: expression(runtimeStyle.zIndex = 1, insertAdjacentHTML('beforeEnd', '<span class="*__after"></span>'));*/
+/*}*/
+/* before after < */
+
+/* loose cursor > */
+/** {*/
+	/*cursor:pointer;*/
+/*}*/
+/* loose cursor < */
+

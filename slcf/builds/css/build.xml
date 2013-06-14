@@ -36,17 +36,15 @@
 		<echo>Concatenating files</echo>
 		<concat destfile="${dest.dir}/template_styles.css">
 			<filelist dir="${src.dir}">
-				<file name="default.css" />
-				<file name="common.css" />
-				<file name="icons.css" />
-				<file name="corners.css" />
-				<file name="forms.css" />
-				<file name="billets.css" />
-				<file name="components.css" />
-				<file name="layout.css" />
-				<file name="modification.css" />
-				<file name="hacks.css" />
-				<!--<file name="styles.css" />-->
+				<!--<file name="default.css" />-->
+				<!--<file name="common.css" />-->
+				<!--<file name="icons.css" />-->
+				<!--<file name="forms.css" />-->
+				<!--<file name="billets.css" />-->
+				<!--<file name="components.css" />-->
+				<!--<file name="layout.css" />-->
+				<!--<file name="hacks.css" />-->
+				<file name="styles.css" />
 			</filelist>
 		</concat>
 		<concat destfile="${dest.dir}/template_styles_ie.css">

@@ -101,6 +101,7 @@
 	</target>
 
 	<target name="cleaning">
+		<echo>Cleaning files</echo>
 		<replaceregexp file="${dest.dir}/template_styles.css"
                         match="@media screen and\("
                         replace="@media screen and \("

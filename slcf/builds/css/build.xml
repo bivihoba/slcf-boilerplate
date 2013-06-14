@@ -98,25 +98,6 @@
 				<exclude name="*_temp.css"/>
 			</fileset>
 		</yuicompress>
-		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${src.dir}">
-			<fileset dir="${src.dir}">
-				<include name="template_styles*.css"/>
-				<exclude name="*_temp.css"/>
-			</fileset>
-		</yuicompress>
-		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${dest.dir}">
-			<fileset dir="${dest.dir}">
-				<include name="styles.css"/>
-				<exclude name="template_*.css"/>
-			</fileset>
-		</yuicompress>
-		<yuicompress munge="yes" preserveallsemicolons="yes" outputfolder="${src.dir}">
-			<fileset dir="${src.dir}">
-				<include name="print.css"/>
-				<exclude name="*_temp.css"/>
-			</fileset>
-		</yuicompress>
-
 	</target>
 
 	<target name="cleaning">

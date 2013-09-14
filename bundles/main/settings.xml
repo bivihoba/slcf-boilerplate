@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings>
+
+	<!--<include xmlns="http://www.w3.org/2001/XInclude" href="../../vendors/slcf-core/default-semantic.xml"/>-->
+	<!--<include xmlns="http://www.w3.org/2001/XInclude" href="../../vendors/slcf-preset/default-semantic.xml"/>-->
+	<include xmlns="http://www.w3.org/2001/XInclude" href="default-semantic.xml"/>
+
+
+	<!--<include xmlns="http://www.w3.org/2001/XInclude" href="../../vendors/slcf-core/templates/t__xdocument.xml"/>-->
+	<!--<include xmlns="http://www.w3.org/2001/XInclude" href="../../vendors/slcf-core/templates/templates.xml"/>-->
+	<!--<include xmlns="http://www.w3.org/2001/XInclude" href="../../vendors/slcf-core/templates/templates__layout.xml"/>-->
+	<include xmlns="http://www.w3.org/2001/XInclude" href="templates/templates.xml"/>
+
+</settings>

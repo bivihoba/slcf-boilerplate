@@ -1,0 +1,28 @@
+{
+  "name": "slcf-boilerplate",
+  "description": "SLCF Boilerplate",
+  "version": "3.0.0",
+  "author": {
+    "name": "Vasilij Chernov",
+	"email": "Vasiliy.Chernov@softline.ru",
+	"url": "http://bivihoba.ru"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bivihoba/slcf-boilerplate.git"
+  },
+  "devDependencies": {
+    "grunt": ">=0.4.1",
+    "grunt-shell": "~0.3.1",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-text-replace": "~0.3.6",
+    "grunt-contrib-less": "~0.6.4",
+    "grunt-csso": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-parallel": "~0.2.0",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-prettify": "~0.2.6"
+  }
+}

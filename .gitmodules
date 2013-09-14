@@ -1,0 +1,3 @@
+[submodule "vendors/slcf-compiler"]
+	path = vendors/slcf-compiler
+	url = https://github.com/bivihoba/slcf-compiler.git

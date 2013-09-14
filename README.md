@@ -1,4 +1,4 @@
-slcf-default-project
+SLCF Boilerplate
 ====================
 
-Default project structure
+File structure for SLCF-projects.

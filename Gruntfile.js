@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 
 		projectSettings: {
 			projectName: 'softline',
+			repositoryUrl: '<%= pkg.repository.url %>',
 			// TODO use for prefix
 			dev: {
 				htmlPath: 'code/dev'
@@ -29,6 +30,23 @@ module.exports = function(grunt) {
 			files: 'bundles/**/pages/*.xml'
 		},
 		shell: {
+			initProject: {
+				command: [
+					'git init .',
+					'git remote add origin <%= projectSettings.repositoryUrl %>',
+					'git add .',
+					'git submodule add https://github.com/bivihoba/slcf-compiler.git vendors/slcf-compiler',
+					'git submodule add https://github.com/bivihoba/slcf-docs.git vendors/slcf-docs',
+					'git submodule init',
+					'git submodule update',
+					'git add .',
+					'git commit -am \"SLCF boilerplate\"'
+				  ].join('&&')
+				,
+				options: {
+					stdout: true
+				}
+			},
 			bemxml: {
 				command: 'xsltproc --xinclude <%= shell.bemxml.options.input %> --output <%= shell.bemxml.options.output %>',
 				options: {
@@ -241,7 +259,6 @@ module.exports = function(grunt) {
 						'!code/production/readme.md'
 				]
 			}
-
 		},
 		copy: {
 			productionAssets: {
@@ -464,6 +481,20 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-shell');
 
+	grunt.registerTask('cleanBoilerplate', 'DANGER!!! Delete .git .', function() {
+
+		var cleanConfig = grunt.config.get("clean");
+		cleanConfig['boilerplate'] = {
+					src: [
+							'.git',
+							'.gitmodules',
+							'vendors/*',
+							'!vendors/readme.md'
+					]
+		};
+		grunt.config.set('clean', cleanConfig);
+		grunt.task.run('clean:boilerplate');
+	});
 	grunt.registerTask(
 		'default', [
 			'clean:productionHtml',
@@ -478,6 +509,12 @@ module.exports = function(grunt) {
 		]
 	);
 	grunt.registerTask(
+		'initProject', [
+			'cleanBoilerplate',
+			'shell:initProject'
+		]
+	);
+	grunt.registerTask(
 		'createDev', [
 			'shell:bemxmlOnce',
 			'replace:cleanHTML',
@@ -486,7 +523,9 @@ module.exports = function(grunt) {
 	);
 	grunt.registerTask(
 		'cleanProject', [
-			'clean'
+			'clean:devHtml',
+			'clean:devStyles',
+			'clean:productionHtml'
 		]
 	);
 	grunt.registerTask(

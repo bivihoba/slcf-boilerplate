@@ -495,4 +495,11 @@ module.exports = function(grunt) {
 			'clean:devStyles'
 		]
 	);
+	grunt.registerTask(
+		'all', [
+			'cleanProject',
+			'createDev',
+			'default'
+		]
+	);
 };

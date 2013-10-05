@@ -5,9 +5,8 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 
 		projectSettings: {
-			projectName: 'softline',
+			projectName: '<%= pkg.repository.name %>',
 			repositoryUrl: '<%= pkg.repository.url %>',
-			// TODO use for prefix
 			dev: {
 				htmlPath: 'code/dev'
 			}
@@ -16,13 +15,13 @@ module.exports = function(grunt) {
 
 			file: {
 				name: 'index',
-				bundle: 'main',
-				prefix: '<%= projectSettings.projectName %>_<%= bemxml.file.bundle %>__',
+				bundle: 'main', // by default
+				bundleDelimeter: '__',
 				cwd: 'bundles/<%= bemxml.file.bundle %>/pages/',
 				inputFileName: '<%= bemxml.file.name %>.xml',
 				inputFilePath: '<%= bemxml.file.cwd %><%= bemxml.file.inputFileName %>',
 				dest: 'code/dev/',
-				outputFileName: '<%= bemxml.file.prefix %><%= bemxml.file.name %>.html',
+				outputFileName: '<%= bemxml.file.bundle %><%= bemxml.file.bundleDelimeter %><%= bemxml.file.name %>.html',
 				outputFilePath: '<%= bemxml.file.dest %><%= bemxml.file.outputFileName %>',
 
 				src: ''
@@ -65,7 +64,6 @@ module.exports = function(grunt) {
 
 						var realBundles = [];
 						var allPages = [];
-						var prefix = 'softline_'; // TODO Вынести в конфиг
 
 						bundles.forEach(getRealBundles);
 
@@ -90,7 +88,7 @@ module.exports = function(grunt) {
 							var bundleCwd = 'bundles/';
 							var bundleName = file.substring(bundleCwd.length , file.indexOf('/', bundleCwd.length));
 
-							var string = 'xsltproc --xinclude '+file+' --output '+'code/dev/'+prefix+bundleName+'__'+filename+'.html';
+							var string = 'xsltproc --xinclude '+file+' --output '+'code/dev/'+bundleName+'<%= bemxml.file.bundleDelimeter %>'+filename+'.html';
 
 							console.log(string);
 							return string;
@@ -455,8 +453,7 @@ module.exports = function(grunt) {
 		var bundleCwd = 'bundles/';
 		var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('/', bundleCwd.length));
 
-		var htmlFile = 'code/dev/'+'softline_'+bundleName+'__'+path.basename(filepath, '.xml')+'.html';
-		// TODO вынести префикс в конфиг
+		var htmlFile = 'code/dev/'+bundleName+'<%= bemxml.file.bundleDelimeter %>'+path.basename(filepath, '.xml')+'.html';
 
 		if (target == 'css') {
 			bundleName = path.basename(filepath, '.css').replace('styles_','');

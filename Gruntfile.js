@@ -453,8 +453,11 @@ module.exports = function(grunt) {
 
 		var filename = path.basename(filepath, '.xml');
 		var bundleCwd = 'bundles/';
-		var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('/', bundleCwd.length));
-
+		if(filepath.indexOf('/', bundleCwd.length) != -1) {
+			var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('/', bundleCwd.length));
+		} else {
+			var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('\\', bundleCwd.length));
+		}
 		var htmlFile = 'code/dev/'+'softline_'+bundleName+'__'+path.basename(filepath, '.xml')+'.html';
 		// TODO вынести префикс в конфиг
 

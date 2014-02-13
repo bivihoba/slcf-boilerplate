@@ -16,12 +16,11 @@ module.exports = function(grunt) {
 			file: {
 				name: 'index',
 				bundle: 'main', // by default
-				bundleDelimeter: '__',
 				cwd: 'bundles/<%= bemxml.file.bundle %>/pages/',
 				inputFileName: '<%= bemxml.file.name %>.xml',
 				inputFilePath: '<%= bemxml.file.cwd %><%= bemxml.file.inputFileName %>',
 				dest: 'code/dev/',
-				outputFileName: '<%= bemxml.file.bundle %><%= bemxml.file.bundleDelimeter %><%= bemxml.file.name %>.html',
+				outputFileName: '<%= bemxml.file.bundle %>__<%= bemxml.file.name %>.html',
 				outputFilePath: '<%= bemxml.file.dest %><%= bemxml.file.outputFileName %>',
 
 				src: ''
@@ -88,7 +87,7 @@ module.exports = function(grunt) {
 							var bundleCwd = 'bundles/';
 							var bundleName = file.substring(bundleCwd.length , file.indexOf('/', bundleCwd.length));
 
-							var string = 'xsltproc --xinclude '+file+' --output '+'code/dev/'+bundleName+'<%= bemxml.file.bundleDelimeter %>'+filename+'.html';
+							var string = 'xsltproc --xinclude '+file+' --output '+'code/dev/'+bundleName+'__'+filename+'.html';
 
 							console.log(string);
 							return string;
@@ -457,7 +456,7 @@ module.exports = function(grunt) {
 			var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('\\', bundleCwd.length));
 		}
 
-		var htmlFile = 'code/dev/'+bundleName+'<%= bemxml.file.bundleDelimeter %>'+path.basename(filepath, '.xml')+'.html';
+		var htmlFile = 'code/dev/'+bundleName+'__'+path.basename(filepath, '.xml')+'.html';
 
 		if (target == 'css') {
 			bundleName = path.basename(filepath, '.css').replace('styles_','');

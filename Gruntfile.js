@@ -1,9 +1,7 @@
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-
 		pkg: grunt.file.readJSON('package.json'),
-
 		projectSettings: {
 			projectName: '<%= pkg.repository.name %>',
 			repositoryUrl: '<%= pkg.repository.url %>',
@@ -12,7 +10,6 @@ module.exports = function(grunt) {
 			}
 		},
 		bemxml: {
-
 			file: {
 				name: 'index',
 				bundle: 'main', // by default
@@ -22,7 +19,6 @@ module.exports = function(grunt) {
 				dest: 'code/dev/',
 				outputFileName: '<%= bemxml.file.bundle %>__<%= bemxml.file.name %>.html',
 				outputFilePath: '<%= bemxml.file.dest %><%= bemxml.file.outputFileName %>',
-
 				src: ''
 			},
 			files: 'bundles/**/pages/*.xml'
@@ -34,13 +30,13 @@ module.exports = function(grunt) {
 					'git remote add origin <%= projectSettings.repositoryUrl %>',
 					'git add .',
 					'git submodule add https://github.com/bivihoba/slcf-compiler.git vendors/slcf-compiler',
-                                        'git submodule add https://github.com/askaza/slcf-nano-core.git vendors/slcf-nano-core',
+					'git submodule add https://github.com/askaza/slcf-nano-core.git vendors/slcf-nano-core',
 					'git submodule add https://github.com/bivihoba/slcf-docs.git vendors/slcf-docs',
 					'git submodule init',
 					'git submodule update',
 					'git add .',
 					'git commit -am \"SLCF boilerplate\"'
-				  ].join('&&')
+				].join('&&')
 				,
 				options: {
 					stdout: true
@@ -49,53 +45,55 @@ module.exports = function(grunt) {
 			bemxml: {
 				command: 'xsltproc --xinclude <%= shell.bemxml.options.input %> --output <%= shell.bemxml.options.output %>',
 				options: {
-					input : '<%= bemxml.file.inputFilePath %>',
-					output : '<%= bemxml.file.outputFilePath %>'
+					input: '<%= bemxml.file.inputFilePath %>',
+					output: '<%= bemxml.file.outputFilePath %>'
 				}
 			},
 			bemxmlOnce: {
 				command:
-					function () {
+						function() {
 
-						var fs = require('fs');
-						var path = require('path');
+							var fs = require('fs');
+							var path = require('path');
 
-						var bundles = fs.readdirSync('bundles');
+							var bundles = fs.readdirSync('bundles');
 
-						var realBundles = [];
-						var allPages = [];
+							var realBundles = [];
+							var allPages = [];
 
-						bundles.forEach(getRealBundles);
+							bundles.forEach(getRealBundles);
 
 							function getRealBundles(item) {
-								var bundlePath = 'bundles/'+item+'/pages/';
+								var bundlePath = 'bundles/' + item + '/pages/';
 								if (grunt.file.exists(bundlePath)) {
 									return realBundles.push(item)
 								}
 							}
 
-						realBundles.forEach(getPages);
+							realBundles.forEach(getPages);
 
 							function getPages(bundle) {
-								var pages = fs.readdirSync('bundles/'+bundle+'/pages');
+								var pages = fs.readdirSync('bundles/' + bundle + '/pages');
 
-								return pages.forEach(function(page) {allPages.push('bundles/'+bundle+'/pages/'+page)})
+								return pages.forEach(function(page) {
+									allPages.push('bundles/' + bundle + '/pages/' + page)
+								})
 							}
 
-						var output = allPages.map(function(file){
-							var filename = path.basename(file, '.xml');
+							var output = allPages.map(function(file) {
+								var filename = path.basename(file, '.xml');
 
-							var bundleCwd = 'bundles/';
-							var bundleName = file.substring(bundleCwd.length , file.indexOf('/', bundleCwd.length));
+								var bundleCwd = 'bundles/';
+								var bundleName = file.substring(bundleCwd.length, file.indexOf('/', bundleCwd.length));
 
-							var string = 'xsltproc --xinclude '+file+' --output '+'code/dev/'+bundleName+'__'+filename+'.html';
+								var string = 'xsltproc --xinclude ' + file + ' --output ' + 'code/dev/' + bundleName + '__' + filename + '.html';
 
-							console.log(string);
-							return string;
-					}).join(' & ');
+								console.log(string);
+								return string;
+							}).join(' & ');
 
-					return output;
-				},
+							return output;
+						},
 				options: {
 					stdout: true
 				}
@@ -107,7 +105,6 @@ module.exports = function(grunt) {
 					path: '<%= projectSettings.dev.htmlPath %>/*.html'
 				},
 				src: '<%= replace.cleanHTML.options.path %>',
-
 				overwrite: true,
 				replacements: [
 					{
@@ -134,7 +131,6 @@ module.exports = function(grunt) {
 			},
 			prettifyXML: {
 				src: 'bundles/*/pages/*.xml',
-
 				overwrite: true,
 				replacements: [
 					{
@@ -219,24 +215,23 @@ module.exports = function(grunt) {
 			},
 			renameCSSFilesInHTML: {
 				src: 'code/production/*.html',
-
 				overwrite: true,
 				replacements: [
 					{
 						from: 'href="css/styles',
-						to:'href="css/template_styles'
+						to: 'href="css/template_styles'
 					},
 					{
 						from: '\<link rel=\"stylesheet\" media=\"screen\" href=\"css\/ie\.css" \/\>',
-						to:''
+						to: ''
 					}, //TODO rewrite
 					{
 						from: 'href="css/ie.css',
-						to:'href="css/template_styles_ie.css'
+						to: 'href="css/template_styles_ie.css'
 					},
 					{
 						from: 'href="css/ie_',
-						to:'href="css/template_styles_ie_'
+						to: 'href="css/template_styles_ie_'
 					}
 				]
 			}
@@ -250,11 +245,11 @@ module.exports = function(grunt) {
 			},
 			productionHtml: {
 				src: [
-						'code/production/images/**',
-						'code/production/fonts/**',
-						'code/production/css/**',
-						'code/production/*',
-						'!code/production/readme.md'
+					'code/production/images/**',
+					'code/production/fonts/**',
+					'code/production/css/**',
+					'code/production/*',
+					'!code/production/readme.md'
 				]
 			}
 		},
@@ -290,34 +285,34 @@ module.exports = function(grunt) {
 		less: {
 			dev: {
 				files: [{
-					expand: 'true',
-					cwd: 'bundles',
-					src: '*/styles.less',
-					dest: 'code/dev/css/',
-					ext: '.css',
-					rename: function(dest, matchedSrcPath, options) {
-						var path = require('path');
-						var bundle = matchedSrcPath.substring(0, matchedSrcPath.indexOf('/'));
-						var newFilename = matchedSrcPath.replace(bundle + '/','');
-							newFilename = newFilename.replace('styles','styles_' + bundle);
-						return path.join(dest, newFilename);
+						expand: 'true',
+						cwd: 'bundles',
+						src: '*/styles.less',
+						dest: 'code/dev/css/',
+						ext: '.css',
+						rename: function(dest, matchedSrcPath, options) {
+							var path = require('path');
+							var bundle = matchedSrcPath.substring(0, matchedSrcPath.indexOf('/'));
+							var newFilename = matchedSrcPath.replace(bundle + '/', '');
+							newFilename = newFilename.replace('styles', 'styles_' + bundle);
+							return path.join(dest, newFilename);
+						}
+					},
+					// and for media print
+					{
+						expand: 'true',
+						cwd: 'bundles',
+						src: '*/styles.print.less',
+						dest: 'code/dev/css/',
+						ext: '.print.css',
+						rename: function(dest, matchedSrcPath, options) {
+							var path = require('path');
+							var bundle = matchedSrcPath.substring(0, matchedSrcPath.indexOf('/'));
+							var newFilename = matchedSrcPath.replace(bundle + '/', '');
+							newFilename = newFilename.replace('styles', 'styles_' + bundle);
+							return path.join(dest, newFilename);
+						}
 					}
-				},
-				// and for media print
-				{
-					expand: 'true',
-					cwd: 'bundles',
-					src: '*/styles.print.less',
-					dest: 'code/dev/css/',
-					ext: '.print.css',
-					rename: function(dest, matchedSrcPath, options) {
-						var path = require('path');
-						var bundle = matchedSrcPath.substring(0, matchedSrcPath.indexOf('/'));
-						var newFilename = matchedSrcPath.replace(bundle + '/','');
-							newFilename = newFilename.replace('styles','styles_' + bundle);
-						return path.join(dest, newFilename);
-					}
-				}
 				]
 			}
 		},
@@ -334,13 +329,13 @@ module.exports = function(grunt) {
 						src: [
 							'css/styles_<%= csso.production.options.bundle %>.css',
 							'!css/styles_<%= csso.production.options.bundle %>.print.css'
-							],
+						],
 						dest: 'code/production/',
 						ext: '.css',
 						rename: function(dest, matchedSrcPath, options) {
 							var path = require('path');
 							var newFilename;
-							newFilename = matchedSrcPath.replace('styles_','template_styles_');
+							newFilename = matchedSrcPath.replace('styles_', 'template_styles_');
 							return path.join(dest, newFilename);
 						}
 					},
@@ -355,7 +350,7 @@ module.exports = function(grunt) {
 						rename: function(dest, matchedSrcPath, options) {
 							var path = require('path');
 							var newFilename;
-							newFilename = matchedSrcPath.replace('styles_','template_styles_');
+							newFilename = matchedSrcPath.replace('styles_', 'template_styles_');
 							return path.join(dest, newFilename);
 						}
 					}
@@ -364,14 +359,14 @@ module.exports = function(grunt) {
 		},
 		concat: {
 			productionCSScommon: {
-			 src: 'code/production/css/template_styles_main.css',
-			 dest: 'code/production/css/template_styles.css'
-		   },
+				src: 'code/production/css/template_styles_main.css',
+				dest: 'code/production/css/template_styles.css'
+			},
 			productionIE: {
 				files: {
 					'code/production/css/template_styles_ie.css': ['code/dev/css/ie7.css', 'code/dev/css/ie7_main.css']
 				}
-		   }
+			}
 		},
 //		cssmin: {
 //			productionIE: {
@@ -408,7 +403,6 @@ module.exports = function(grunt) {
 				"preserve_newlines": false
 			},
 			production: {
-
 				expand: true,
 				cwd: 'code/production/',
 				ext: '.html',
@@ -426,7 +420,7 @@ module.exports = function(grunt) {
 			},
 			less: {
 				files: 'bundles/**/*.less',
-				tasks: ['less','csso'],
+				tasks: ['less', 'csso'],
 				options: {
 					spawn: false
 				}
@@ -442,7 +436,7 @@ module.exports = function(grunt) {
 	});
 
 	grunt.event.on('watch', function(action, filepath, target) {
-	  grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
+		grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
 	});
 
 	grunt.event.on('watch', function(action, filepath, target) {
@@ -451,21 +445,21 @@ module.exports = function(grunt) {
 
 		var filename = path.basename(filepath, '.xml');
 		var bundleCwd = 'bundles/';
-		if(filepath.indexOf('/', bundleCwd.length) != -1) {
-			var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('/', bundleCwd.length));
+		if (filepath.indexOf('/', bundleCwd.length) != -1) {
+			var bundleName = filepath.substring(bundleCwd.length, filepath.indexOf('/', bundleCwd.length));
 		} else {
-			var bundleName = filepath.substring(bundleCwd.length , filepath.indexOf('\\', bundleCwd.length));
+			var bundleName = filepath.substring(bundleCwd.length, filepath.indexOf('\\', bundleCwd.length));
 		}
 
-		var htmlFile = 'code/dev/'+bundleName+'__'+path.basename(filepath, '.xml')+'.html';
+		var htmlFile = 'code/dev/' + bundleName + '__' + path.basename(filepath, '.xml') + '.html';
 
 		if (target == 'css') {
-			bundleName = path.basename(filepath, '.css').replace('styles_','');
+			bundleName = path.basename(filepath, '.css').replace('styles_', '');
 		}
 		grunt.config(['bemxml', 'file', 'name'], filename);
 		grunt.config(['bemxml', 'file', 'bundle'], bundleName);
 		grunt.config(['csso', 'production', 'options', 'bundle'], bundleName);
-		grunt.config(['replace', 'cleanHTML', 'options', 'path'], htmlFile );
+		grunt.config(['replace', 'cleanHTML', 'options', 'path'], htmlFile);
 
 		grunt.log.writeln(htmlFile);
 	});
@@ -486,60 +480,60 @@ module.exports = function(grunt) {
 
 		var cleanConfig = grunt.config.get("clean");
 		cleanConfig['boilerplate'] = {
-					src: [
-							'.git',
-							'.gitmodules',
-							'vendors/*',
-							'!vendors/readme.md'
-					]
+			src: [
+				'.git',
+				'.gitmodules',
+				'vendors/*',
+				'!vendors/readme.md'
+			]
 		};
 		grunt.config.set('clean', cleanConfig);
 		grunt.task.run('clean:boilerplate');
 	});
 	grunt.registerTask(
-		'default', [
-			'clean:productionHtml',
-			'copy:productionAssets',
-			'copy:productionHtml',
-			'copy:productionIECSS',
-			'replace:renameCSSFilesInHTML',
-			'csso:production',
-			'concat:productionCSScommon',
-			'concat:productionIE'
+			'default', [
+				'clean:productionHtml',
+				'copy:productionAssets',
+				'copy:productionHtml',
+				'copy:productionIECSS',
+				'replace:renameCSSFilesInHTML',
+				'csso:production',
+				'concat:productionCSScommon',
+				'concat:productionIE'
 //			'prettify:production' TODO fix whitespaces
-		]
-	);
+			]
+			);
 	grunt.registerTask(
-		'initProject', [
-			'cleanBoilerplate',
-			'shell:initProject'
-		]
-	);
+			'initProject', [
+				'cleanBoilerplate',
+				'shell:initProject'
+			]
+			);
 	grunt.registerTask(
-		'createDev', [
-			'shell:bemxmlOnce',
-			'replace:cleanHTML',
-			'less:dev'
-		]
-	);
+			'createDev', [
+				'shell:bemxmlOnce',
+				'replace:cleanHTML',
+				'less:dev'
+			]
+			);
 	grunt.registerTask(
-		'cleanProject', [
-			'clean:devHtml',
-			'clean:devStyles',
-			'clean:productionHtml'
-		]
-	);
+			'cleanProject', [
+				'clean:devHtml',
+				'clean:devStyles',
+				'clean:productionHtml'
+			]
+			);
 	grunt.registerTask(
-		'cleanProjectDev', [
-			'clean:devHtml',
-			'clean:devStyles'
-		]
-	);
+			'cleanProjectDev', [
+				'clean:devHtml',
+				'clean:devStyles'
+			]
+			);
 	grunt.registerTask(
-		'all', [
-			'cleanProject',
-			'createDev',
-			'default'
-		]
-	);
+			'all', [
+				'cleanProject',
+				'createDev',
+				'default'
+			]
+			);
 };

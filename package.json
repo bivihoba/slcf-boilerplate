@@ -23,6 +23,6 @@
     "grunt-parallel": "~0.2.0",
     "grunt-contrib-cssmin": "~0.6.1",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-prettify": "~0.2.6"
+    "grunt-prettify": ">=0.2.6"
   }
 }

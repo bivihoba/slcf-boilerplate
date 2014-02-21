@@ -34,6 +34,7 @@ module.exports = function(grunt) {
 					'git remote add origin <%= projectSettings.repositoryUrl %>',
 					'git add .',
 					'git submodule add https://github.com/bivihoba/slcf-compiler.git vendors/slcf-compiler',
+                                        'git submodule add https://github.com/askaza/slcf-nano-core.git vendors/slcf-nano-core',
 					'git submodule add https://github.com/bivihoba/slcf-docs.git vendors/slcf-docs',
 					'git submodule init',
 					'git submodule update',

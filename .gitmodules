@@ -4,3 +4,6 @@
 [submodule "vendors/slcf-docs"]
 	path = vendors/slcf-docs
 	url = https://github.com/bivihoba/slcf-docs.git
+[submodule "vendors/slcf-nano-core"]
+	path = vendors/slcf-nano-core
+	url = https://github.com/askaza/slcf-nano-core.git

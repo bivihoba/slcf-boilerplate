@@ -84,8 +84,8 @@ module.exports = function (grunt) {
 
 		var bundleCwd = 'bundles/',
 			tech = target || 'xml',
-			bundleName = filepath.substring(bundleCwd.length, filepath.indexOf('/', bundleCwd.length)),
-			fileName = filepath.substring(filepath.lastIndexOf('/')+1, filepath.lastIndexOf('.'+tech));
+			bundleName = filepath.substring(bundleCwd.length, filepath.indexOf(path.sep, bundleCwd.length)),
+			fileName = filepath.substring(filepath.lastIndexOf(path.sep)+1, filepath.lastIndexOf('.'+tech));
 
 			if (target == 'xml') {
 				grunt.task.run('bemxmlPage:'+ fileName + ':' + bundleName);

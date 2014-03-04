@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 				stringCommandOptions = slcf.bundles[bundleGroup].bundles[bundle].technologies.xml.getXSLT_processorCommandOptionsForPage(page);
 
 				stringCommandOptions = [].concat(stringCommandOptions);
-				stringCommandOptions.push(slcf.bundles[bundleGroup].getName() + '/' + slcf.bundles[bundleGroup].bundles[bundle].getName() + '/' + 'templates');
+				stringCommandOptions.push(slcf.bundles[bundleGroup].getName() + '/' + slcf.bundles[bundleGroup].bundles[bundle].getName() + '/' + 'templates/*');
 
 				shellBEMXML_config[page] = {
 					command: stringCommand,

@@ -100,7 +100,7 @@ module.exports = {
 				var that = this;
 					schemePagesDirectory = schemePagesDirectory || this.schemePagesDirectory;
 				var schemePagesPaths = files.map(function (filename) {
-						return that.getPath() + '/' + filename;
+						return path.join(path.normalize(that.getPath()), filename);
 					});
 
 				return schemePagesPaths;
@@ -177,14 +177,14 @@ module.exports = {
 
 								pureEntities = that.hardDepsComeBack(pureEntities, bundle.technologies[technology]);
 
-							var content = pureEntities.join('\n');
-
-							var file = bundle.technologies[technology].getPath() + '/' +
-											bundle.technologies[technology].usedImportsFileName +
-											'.' + bundle.technologies[technology].fileExtension;
+							var content = pureEntities.join('\n'),
+								filePath = path.join(path.normalize(bundle.technologies[technology].getPath()),
+												bundle.technologies[technology].usedImportsFileName +
+												'.' +
+												bundle.technologies[technology].fileExtension);
 
 							if (pureEntities.length > 0) {
-								fs.writeFileSync(file, content);
+								fs.writeFileSync(filePath, content);
 							}
 						}
 
@@ -200,11 +200,10 @@ module.exports = {
 			},
 			getLibDeps: function (filepath) {
 				if (!fs.existsSync(filepath)) throw Error("Missing file: "+filepath+"!");
-				var file = fs.readFileSync(filepath);
 
-				var files = (file.toString()).split('\n');
-
-				var deps = files.map(function(elem){
+				var file = fs.readFileSync(filepath),
+					files = (file.toString()).split('\n'),
+					deps = files.map(function(elem){
 						if ((elem.indexOf('@import') != -1) && (elem.indexOf('b-') != -1) && (elem.indexOf('//') == -1) && (elem.indexOf('/*') == -1)) {
 							return elem;
 						}
@@ -218,12 +217,12 @@ module.exports = {
 				var libEntities = libDeps.map(function(elem){
 					var dirName = '/'+ bundle.getTechnologyFileName(technology) +'/';
 
-					if (elem.indexOf(dirName) != -1) {
-						return elem.substring(elem.indexOf(dirName) + dirName.length, elem.indexOf('";'));
-					}
-					else {
-						return elem.substring(elem.indexOf('"b-') + 1, elem.indexOf('";'));
-					}
+						if (elem.indexOf(dirName) != -1) {
+							return elem.substring(elem.indexOf(dirName) + dirName.length, elem.indexOf('";'));
+						}
+						else {
+							return elem.substring(elem.indexOf('"b-') + 1, elem.indexOf('";'));
+						}
 					});
 
 					libEntities = libEntities.map(function(elem){
@@ -239,15 +238,15 @@ module.exports = {
 					filename = filename || 'index',
 					command = 'xsltproc',
 					command__options = '--xinclude ',
-					command__sourceFilePath = bundleGroup + '/' + bundle + '/' + 'pages' + '/' + filename + '.' + this.fileExtension,
-					command__sourceDir = '../../' + bundleGroup + '/' + bundle + '/' + this.schemePagesDirectory + '/',
+					command__sourceFilePath = path.join(bundleGroup, bundle, 'pages', filename + '.' + this.fileExtension),
+					command__sourceDir = path.join('..', '..', bundleGroup, bundle, this.schemePagesDirectory) + path.sep,
 					command__sourceFileName = filename + '.' + this.fileExtension,
-					command__outputFilePath = 'code/dev' + '/' + bundle + '__' + filename + '.' + 'html',
+					command__outputFilePath = path.join('code', 'dev', bundle + '__' + filename + '.' + 'html'),
 
 					stringCommand = command + ' ' + command__options +
 									command__sourceFilePath + ' ' +
 									'--stringparam filename ' + command__sourceFileName + ' ' +
-									'--stringparam filepath \'' + command__sourceDir + '\'' +
+									'--stringparam filepath ' + command__sourceDir +
 								 	' --output '+ command__outputFilePath;
 				return stringCommand;
 			},
@@ -255,7 +254,7 @@ module.exports = {
 				var bundleGroup = bundleGroup || this.bundle.bundleGroup.getName(),
 					bundle = bundle || this.bundle.getName(),
 					filename = filename || 'index',
-					command__sourceFilePath = bundleGroup + '/' + bundle + '/' + 'pages' + '/' + filename + '.' + this.fileExtension,
+					command__sourceFilePath = path.join(bundleGroup, bundle, 'pages', filename + '.' + this.fileExtension),
 					stringCommand = command__sourceFilePath;
 				return stringCommand;
 			},

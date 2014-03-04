@@ -201,7 +201,7 @@ module.exports = {
 			},
 			createImportsFile: function () {
 				var contentSource = this.getImports(),
-					filePath = path.join(this.getPath(),this.autoImportsFileName + '.' + this.fileExtension);
+					filePath = path.join(path.normalize(this.getPath()), this.autoImportsFileName + '.' + this.fileExtension);
 
 					fs.writeFileSync(filePath, contentSource.join('\n'));
 

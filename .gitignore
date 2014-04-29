@@ -1,0 +1,7 @@
+.project
+.settings
+.idea
+.externalToolBuilders
+npm-debug.log
+.DS_Store
+node_modules/

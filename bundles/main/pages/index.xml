@@ -4,8 +4,13 @@
 		<include xmlns="http://www.w3.org/2001/XInclude" href="../settings.xml"/>
 	</project>
 
+	<meta>
+		<title>Page Title</title>
+		<description>Page Description</description>
+	</meta>
+
 	<templates>
-		<t:xtitle><cdata><![CDATA[Main Page]]></cdata></t:xtitle>
+		<t:xtitle><cdata><![CDATA[Page Title]]></cdata></t:xtitle>
 	</templates>
 
 	<page-canvas>

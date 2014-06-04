@@ -1,20 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xml" href="../../../project.xsl"?><page xmlns:a="http://slcf/templates/settings/bem-scheme/additional" xmlns:b="http://slcf/templates/settings/bem-scheme/block" xmlns:d="http://slcf/templates/settings/bem-scheme/data" xmlns:e="http://slcf/templates/settings/bem-scheme/element" xmlns:p="http://slcf/templates/settings/bem-scheme/pointer" xmlns:m="http://slcf/templates/settings/bem-scheme/modification" xmlns:t="http://slcf/templates/settings/bem-scheme/template" xmlns:x="http://slcf/templates/settings/bem-scheme/xhtml" xmlns:un="http://slcf/templates/settings/bem-scheme/unknown-namespace" xmlns:alxc="http://slcf/templates/settings/bem-scheme/additional-legacy-xhtml-class">
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xml" href="../../../project.xsl"?>
+<page xmlns:a="http://slcf/templates/settings/bem-scheme/additional"
+      xmlns:b="http://slcf/templates/settings/bem-scheme/block" xmlns:d="http://slcf/templates/settings/bem-scheme/data"
+      xmlns:e="http://slcf/templates/settings/bem-scheme/element"
+      xmlns:p="http://slcf/templates/settings/bem-scheme/pointer"
+      xmlns:m="http://slcf/templates/settings/bem-scheme/modification"
+      xmlns:t="http://slcf/templates/settings/bem-scheme/template"
+      xmlns:x="http://slcf/templates/settings/bem-scheme/xhtml"
+      xmlns:un="http://slcf/templates/settings/bem-scheme/unknown-namespace"
+      xmlns:alxc="http://slcf/templates/settings/bem-scheme/additional-legacy-xhtml-class">
 
-	<project>
-		<include xmlns="http://www.w3.org/2001/XInclude" href="../settings.xml"/>
-	</project>
+    <project>
+        <include xmlns="http://www.w3.org/2001/XInclude" href="../settings.xml"/>
+    </project>
 
-	<meta>
-		<title>Page Title</title>
-		<description>Page Description</description>
-	</meta>
+    <meta>
+        <title>Page Title</title>
+        <description>Page Description</description>
+    </meta>
 
-	<templates>
-		<t:xtitle><cdata><![CDATA[Page Title]]></cdata></t:xtitle>
-	</templates>
+    <templates>
+        <t:xtitle>
+            <cdata><![CDATA[Page Title]]></cdata>
+        </t:xtitle>
+    </templates>
 
-	<page-canvas>
-		<p:layout/>
-	</page-canvas>
+    <page-canvas>
+        <p:layout/>
+    </page-canvas>
 
 </page>

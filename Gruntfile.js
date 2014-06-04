@@ -34,11 +34,14 @@ module.exports = function(grunt) {
 
 	grunt.registerTask(
 		'buildProjectProduction', [
+            'clean:productionBuild',                    // Удаляем файл template_styles.min.css
 			'newer:copy:htmlToProduction',				// Копируем html-файлы из dev в production
 			'replace:renameCSS_ProductionFiles',		// В html-файлах из production меняем имена в путях к CSS-файлам
 			'newer:copy:assetsToProduction',			// Копируем картинки и другую парашу из dev в production
-			'csso:production',							// Оптимизируем production-стили через csso
-			'newer:imagemin:production'					// Оптимизируем картинки
+			'newer:imagemin:production',			    // Оптимизируем картинки
+            'cssmin:production',                        // Оптимизируем css файлы
+            'cssmin:concatProduction',                  // Объединяем css файлы
+            'clean:temporaryFiles'                      // Удаляем временный файл
 		]
 	);
 
@@ -48,7 +51,10 @@ module.exports = function(grunt) {
 			'buildUsedDeps',
 			'less:dev',
 			'copy:getDevCSS',
-			'csso:production'
+			'clean:productionBuild',                    // Удаляем файл template_styles.min.css
+			'cssmin:production',                        // Оптимизируем css файлы
+            'cssmin:concatProduction',                  // Объединяем css файлы
+            'clean:temporaryFiles'                      // Удаляем временный файл
 		]
 	);
 

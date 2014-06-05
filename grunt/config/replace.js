@@ -32,7 +32,7 @@ module.exports = {
 		replacements: [
 			{
 				from: '.styles.css',
-				to:'.template_styles.css'
+				to:'.min.css'
 			}
 		]
 	}

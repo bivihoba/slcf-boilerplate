@@ -14,7 +14,7 @@ module.exports = {
 				var bundle = matchedSrcPath.substring(0, matchedSrcPath.indexOf('/'));
 				var newFilename = matchedSrcPath.replace(bundle + '/','');
 					newFilename = newFilename.replace('styles', bundle + '.styles');
-					newFilename = newFilename.replace('.stylus', '.css');
+					newFilename = newFilename.replace('styles.styl', 'styles.css');
 				return path.join(dest, newFilename);
 			}
 		}]

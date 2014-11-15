@@ -1,3 +1,6 @@
+## 3.1.2
+- Fix grunt-stylus config
+
 ## 3.1.1
 - Adding autoprefixer
 

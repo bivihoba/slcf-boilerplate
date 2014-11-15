@@ -102,6 +102,7 @@ module.exports = function (grunt) {
 					grunt.task.run('buildDeps:'+ techVariant);
 					grunt.task.run('buildUsedDeps:'+ bundleName);
 					grunt.task.run('generateBundleStylus_Tech:'+ techVariant + ':' + bundleName);
+					grunt.task.run('autoprefixer:dev');
 			}
 			if (target == 'less') {
 				var techVariant = filepath.substring(filepath.lastIndexOf('less.')+5, filepath.lastIndexOf('.blocks'));
@@ -114,6 +115,7 @@ module.exports = function (grunt) {
 					grunt.task.run('buildDeps:'+ techVariant);
 					grunt.task.run('buildUsedDeps:'+ bundleName);
 					grunt.task.run('generateBundleLESS_Tech:'+ techVariant + ':' + bundleName);
+					grunt.task.run('autoprefixer:dev');
 			}
 			if (target == 'css') {
 				var techVariant = filepath.substring(filepath.lastIndexOf('css.')+4, filepath.lastIndexOf('.blocks'));
@@ -125,6 +127,7 @@ module.exports = function (grunt) {
 					grunt.task.run('buildDeps:'+ techVariant);
 					grunt.task.run('buildUsedDeps:'+ bundleName);
 					grunt.task.run('generateBundleCSS_Tech:'+ fileName + ':' + techVariant + ':' + bundleName);
+					grunt.task.run('autoprefixer:dev');
 			}
 	});
 

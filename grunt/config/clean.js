@@ -55,5 +55,15 @@ module.exports = {
 //			production files
 			'<%= clean.production.src %>'
 		]
-	}
+	},
+    temporaryFiles: {
+        src: [
+            'code/production/css/buffer.css'
+        ]
+    },
+    productionBuild: {
+        src: [
+            'code/production/css/template_styles.min.css'
+        ]
+    }
 };
